@@ -50,13 +50,16 @@ class Block:
         otherwise return their sum block
         """
         # 1.prunik
+        if not self._intersection(block.cells) and not self._touch(block.cells):
+            raise ValueError("No touch, no intersection among blocks.")
+        
 
-    def _intersection(self, cells, other_cells):
-        results = [x == y for x in cells for y in other_cells]
+    def _intersection(self, other_cells):
+        results = [x == y for x in self.cells for y in other_cells]
         return any(results)
 
-    def _touch(self, cells, other_cells):
-        results = [x.has_touch(y) for x in cells for y in other_cells]
+    def _touch(self, other_cells):
+        results = [x.has_touch(y) for x in self.cells for y in other_cells]
         return any(results)
                 
     
